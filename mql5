@@ -1,0 +1,78 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                       Smart Gold Ai Robot.mq5    |
+//|                       Copyright 2022, Forex Robot Easy Team       |
+//|                                          forexroboteasy.com       |
+//+------------------------------------------------------------------+
+
+// Global variables
+input string TradingDay = 'Monday';            // Day of the week to trade
+input int TradingPeriod = 60;                  // Period to trade in minutes
+input int IntervalBetweenTrades = 2;           // Interval between trades in minutes
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Check if the current day is the selected trading day
+    if (DayOfWeek() == StringToDayOfWeek(TradingDay))
+    {
+        // Set up the trading timer
+        datetime nextTradeTime = TimeLocal() + TradingPeriod * 60;
+
+        while (nextTradeTime <= TimeCurrent())
+        {
+            // Check if the market conditions are suitable for trading
+            if (IsMarketConditionsSuitable())
+            {
+                // Execute the trading algorithm
+                ExecuteTradingAlgorithm();
+            }
+
+            // Wait for the next trading interval
+            Sleep(IntervalBetweenTrades * 60 * 1000);
+            nextTradeTime += IntervalBetweenTrades * 60;
+        }
+    }
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Check if the market conditions are suitable for trading          |
+//+------------------------------------------------------------------+
+bool IsMarketConditionsSuitable()
+{
+    // Add your market condition rules here
+    // Return true if the conditions are suitable for trading, otherwise false
+    return(false);
+}
+
+//+------------------------------------------------------------------+
+//| Execute the trading algorithm                                    |
+//+------------------------------------------------------------------+
+void ExecuteTradingAlgorithm()
+{
+    // Add your trading algorithm here
+    // Place your trades based on the strategy
+    // Remember to avoid using the Martingale approach
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Add any necessary cleanup code here
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Add any necessary tick processing code here
+}
+
+//+------------------------------------------------------------------+
